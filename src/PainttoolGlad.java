@@ -67,15 +67,19 @@ public class PainttoolGlad {
                     try {
                         fileName = fileChooser.getSelectedFile().getAbsolutePath();
                         File iF = new File(fileName);
+
                         fileChooser.addChoosableFileFilter(new TextFileFilter(".png"));
                         fileChooser.addChoosableFileFilter(new TextFileFilter(".jpg"));
+                        
                         imag = ImageIO.read(iF);
                         loading = true;
-                        if (imag.getWidth() > myFrame.getWidth()) {
+
+                        if (imag.getWidth() > myFrame.getWidth())
                             myFrame.setSize(imag.getWidth() + 40, imag.getWidth() + 80);
-                        }
+
                         panel.setSize(imag.getWidth(), imag.getWidth());
                         panel.repaint();
+
                     } catch (FileNotFoundException ex) {
                         JOptionPane.showMessageDialog(myFrame, "This file does not exist");
                     } catch (IOException ex) {
@@ -94,19 +98,22 @@ public class PainttoolGlad {
                     JFileChooser jf = new JFileChooser();
                     TextFileFilter pngFilter = new TextFileFilter(".png");
                     TextFileFilter jpgFilter = new TextFileFilter(".jpg");
+
                     if (fileName == null) {
                         jf.addChoosableFileFilter(pngFilter);
                         jf.addChoosableFileFilter(jpgFilter);
+
                         int result = jf.showSaveDialog(null);
-                        if (result == JFileChooser.APPROVE_OPTION) {
+
+                        if (result == JFileChooser.APPROVE_OPTION)
                             fileName = jf.getSelectedFile().getAbsolutePath();
-                        }
+
                     }
-                    if (jf.getFileFilter() == pngFilter) {
+                    if (jf.getFileFilter() == pngFilter)
                         ImageIO.write(imag, "png", new File(fileName + ".png"));
-                    } else {
+                     else
                         ImageIO.write(imag, "jpeg", new File(fileName + ".jpg"));
-                    }
+
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(myFrame, "Input/output exception");
                 }
@@ -128,15 +135,16 @@ public class PainttoolGlad {
                     fileChooser.addChoosableFileFilter(jpgFilter);
 
                     int result = fileChooser.showSaveDialog(null);
-                    if (result == JFileChooser.APPROVE_OPTION) {
-                        fileName = fileChooser.getSelectedFile().getAbsolutePath();
-                    }
 
-                    if (fileChooser.getFileFilter() == pngFilter) {
+                    if (result == JFileChooser.APPROVE_OPTION)
+                        fileName = fileChooser.getSelectedFile().getAbsolutePath();
+
+
+                    if (fileChooser.getFileFilter() == pngFilter)
                         ImageIO.write(imag, "png", new File(fileName + ".png"));
-                    } else {
+                    else
                         ImageIO.write(imag, "jpeg", new File(fileName + ".jpg"));
-                    }
+
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(myFrame, "Input/output exception");
                 }
@@ -238,6 +246,7 @@ public class PainttoolGlad {
         JButton redButton = new JButton();
         redButton.setBackground(Color.red);
         redButton.setBounds(40, 5, 15, 15);
+
         redButton.addActionListener(event -> {
             mainColor = Color.red;
             colorButton.setBackground(mainColor);
@@ -247,6 +256,7 @@ public class PainttoolGlad {
         JButton orangeButton = new JButton();
         orangeButton.setBackground(Color.orange);
         orangeButton.setBounds(60, 5, 15, 15);
+
         orangeButton.addActionListener(event -> {
             mainColor = Color.orange;
             colorButton.setBackground(mainColor);
@@ -256,6 +266,7 @@ public class PainttoolGlad {
         JButton yellowButton = new JButton();
         yellowButton.setBackground(Color.yellow);
         yellowButton.setBounds(80, 5, 15, 15);
+
         yellowButton.addActionListener(event -> {
             mainColor = Color.yellow;
             colorButton.setBackground(mainColor);
@@ -265,6 +276,7 @@ public class PainttoolGlad {
         JButton greenButton = new JButton();
         greenButton.setBackground(Color.green);
         greenButton.setBounds(100, 5, 15, 15);
+
         greenButton.addActionListener(event -> {
             mainColor = Color.green;
             colorButton.setBackground(mainColor);
@@ -274,6 +286,7 @@ public class PainttoolGlad {
         JButton blueButton = new JButton();
         blueButton.setBackground(Color.blue);
         blueButton.setBounds(120, 5, 15, 15);
+
         blueButton.addActionListener(event -> {
             mainColor = Color.blue;
             colorButton.setBackground(mainColor);
@@ -283,6 +296,7 @@ public class PainttoolGlad {
         JButton cyanButton = new JButton();
         cyanButton.setBackground(Color.cyan);
         cyanButton.setBounds(140, 5, 15, 15);
+
         cyanButton.addActionListener(event -> {
             mainColor = Color.cyan;
             colorButton.setBackground(mainColor);
@@ -382,42 +396,36 @@ public class PainttoolGlad {
                 Graphics g = imag.getGraphics();
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setColor(mainColor);
+
                 switch (rez) {
                     case 0 -> {
-                        g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
-                        if (first.isSelected()) {
-                            g2.setStroke(new BasicStroke(7.0f));
-                            g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
-                        }
+                        if (first.isSelected()) g2.setStroke(new BasicStroke(7.0f));
                     }
+
                     case 1 -> {
                         g2.setStroke(new BasicStroke(3.0f));
-                        g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
-                        if (first.isSelected()) {
-                            g2.setStroke(new BasicStroke(10.0f));
-                            g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
-                        }
+                        if (first.isSelected()) g2.setStroke(new BasicStroke(10.0f));
                     }
+
                     case 2 -> {
                         g2.setStroke(new BasicStroke(3.0f));
                         g2.setColor(Color.WHITE);
-                        g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
                         if (first.isSelected()) {
                             g2.setStroke(new BasicStroke(10.0f));
                             g2.setColor(Color.WHITE);
-                            g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
                         }
                     }
+
                     case 3 -> panel.requestFocus();
+
                     case 8 -> {
                         g2.setStroke(new BasicStroke(3.5f));
-                        g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
-                        if (first.isSelected()) {
-                            g2.setStroke(new BasicStroke(9.5f));
-                            g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
-                        }
+                        if (first.isSelected()) g2.setStroke(new BasicStroke(9.5f));
                     }
                 }
+
+                g2.drawLine(xPos, yPos, xPos + 1, yPos + 1);
+
                 xPos = e.getX();
                 yPos = e.getY();
 
@@ -452,6 +460,7 @@ public class PainttoolGlad {
                     case 5 -> g.drawOval(x1, y1, (x2 - x1), (y2 - y1));
                     case 6 -> g.drawRect(x1, y1, (x2 - x1), (y2 - y1));
                 }
+
                 xFinal = 0;
                 yFinal = 0;
                 pressed = false;
@@ -460,7 +469,6 @@ public class PainttoolGlad {
         });
         panel.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
-
                 panel.requestFocus();
             }
 
@@ -483,6 +491,7 @@ public class PainttoolGlad {
                 }
             }
         });
+
         myFrame.addComponentListener(new ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
 
@@ -543,5 +552,4 @@ public class PainttoolGlad {
     }
 
 
- 
 }
